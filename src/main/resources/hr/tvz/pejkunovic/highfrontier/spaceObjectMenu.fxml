@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.pejkunovic.highfrontier.SpaceObjectMenu">
+   <children>
+      <Text layoutX="117.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Planet name" />
+      <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Can you move to this planet" />
+      <Text layoutX="232.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yes/No" />
+      <Text layoutX="16.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost (in fuel) to move there" />
+      <Text layoutX="240.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost" />
+      <Text layoutX="16.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Object type" />
+      <Text layoutX="240.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+      <Text layoutX="14.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button layoutX="124.0" layoutY="343.0" mnemonicParsing="false" text="Move" />
+   </children>
+</AnchorPane>
