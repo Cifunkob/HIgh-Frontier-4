@@ -14,10 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Player {
+        private Long id;
         private String name;
         private Integer fuel;
         private Integer water;
-        private SpaceLocation location;
+        private Long locationId;
         private List<TechnologyCard> techCards;
         private List<Outpost> outposts;
 }

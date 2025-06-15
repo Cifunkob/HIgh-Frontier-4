@@ -27,28 +27,28 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Button fx:id="lunaButton" layoutX="534.0" layoutY="260.0" mnemonicParsing="false" text="Luna" />
+      <Button fx:id="lunaButton" layoutX="534.0" layoutY="260.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Luna" />
       <Circle fill="#1f93ff00" layoutX="298.0" layoutY="234.0" radius="97.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="laGrangeV2EButton" layoutX="374.0" layoutY="216.0" mnemonicParsing="false" text="LaGrangeV2E" />
-      <Button fx:id="venusButton" layoutX="277.0" layoutY="170.0" mnemonicParsing="false" text="Venus" />
-      <Button fx:id="zoozveButton" layoutX="277.0" layoutY="242.0" mnemonicParsing="false" text="Zoozve" />
+      <Button fx:id="laGrangeV2EButton" layoutX="374.0" layoutY="216.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="LaGrangeV2E" />
+      <Button fx:id="venusButton" layoutX="277.0" layoutY="170.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Venus" />
+      <Button fx:id="zoozveButton" layoutX="277.0" layoutY="242.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Zoozve" />
       <Circle fill="#1f93ff00" layoutX="76.0" layoutY="228.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="mercuryButton" layoutX="47.0" layoutY="214.0" mnemonicParsing="false" text="Mercury" />
-      <Button fx:id="laGrangeM2VButton" layoutX="115.0" layoutY="211.0" mnemonicParsing="false" text="LaGrangeM2V" />
+      <Button fx:id="mercuryButton" layoutX="47.0" layoutY="214.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Mercury" />
+      <Button fx:id="laGrangeM2VButton" layoutX="115.0" layoutY="211.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="LaGrangeM2V" />
       <Circle fill="#1f93ff00" layoutX="812.0" layoutY="242.0" radius="77.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="marsButton" layoutX="792.0" layoutY="228.0" mnemonicParsing="false" text="Mars" />
-      <Button fx:id="fobosButton" layoutX="787.0" layoutY="176.0" mnemonicParsing="false" text="Fobos" />
-      <Button fx:id="deimosButton" layoutX="787.0" layoutY="273.0" mnemonicParsing="false" text="Deimos" />
-      <Button fx:id="laGrangeE2MButton" layoutX="653.0" layoutY="225.0" mnemonicParsing="false" text="LaGrangeE2M" />
-      <Circle fill="#1f93ff00" layoutX="1199.0" layoutY="262.0" radius="239.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="laGrangeM2JButton" layoutX="878.0" layoutY="230.0" mnemonicParsing="false" text="LaGrangeM2J" />
-      <Button fx:id="jupiterButton" layoutX="1173.0" layoutY="249.0" mnemonicParsing="false" text="Jupiter" />
-      <Button fx:id="ortozijaButton" layoutX="1173.0" layoutY="96.0" mnemonicParsing="false" text="Ortozija" />
-      <Button fx:id="tebaButton" layoutX="1053.0" layoutY="318.0" mnemonicParsing="false" text="Teba" />
-      <Button fx:id="hermipaButton" layoutX="1169.0" layoutY="388.0" mnemonicParsing="false" text="Hermipa" />
-      <Button fx:id="karmaButton" layoutX="1308.0" layoutY="180.0" mnemonicParsing="false" text="Karma" />
-      <Button fx:id="haldenaButton" layoutX="1052.0" layoutY="182.0" mnemonicParsing="false" text="Haldena" />
+      <Button fx:id="marsButton" layoutX="792.0" layoutY="228.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Mars" />
+      <Button fx:id="fobosButton" layoutX="787.0" layoutY="176.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Fobos" />
+      <Button fx:id="deimosButton" layoutX="787.0" layoutY="273.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Deimos" />
+      <Button fx:id="laGrangeE2MButton" layoutX="653.0" layoutY="225.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="LaGrangeE2M" />
+      <Circle fill="#1f93ff00" layoutX="1193.0" layoutY="256.0" radius="239.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="laGrangeM2JButton" layoutX="878.0" layoutY="230.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="LaGrangeM2J" />
+      <Button fx:id="jupiterButton" layoutX="1173.0" layoutY="249.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Jupiter" />
+      <Button fx:id="ortozijaButton" layoutX="1173.0" layoutY="96.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Ortozija" />
+      <Button fx:id="tebaButton" layoutX="1053.0" layoutY="318.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Teba" />
+      <Button fx:id="hermipaButton" layoutX="1169.0" layoutY="388.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Hermipa" />
+      <Button fx:id="karmaButton" layoutX="1308.0" layoutY="180.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Karma" />
+      <Button fx:id="haldenaButton" layoutX="1052.0" layoutY="182.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Haldena" />
       <Button fx:id="europaButton" layoutX="1315.0" layoutY="331.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Europa" />
-      <Button fx:id="earthButton" layoutX="533.0" layoutY="205.0" mnemonicParsing="false" text="Earth" />
+      <Button fx:id="earthButton" layoutX="533.0" layoutY="205.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Earth" />
    </children>
 </AnchorPane>

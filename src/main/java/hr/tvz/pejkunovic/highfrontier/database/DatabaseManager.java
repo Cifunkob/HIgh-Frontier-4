@@ -12,7 +12,7 @@ public class DatabaseManager {
 
     private DatabaseManager() {}
 
-    private static Connection connectToDatabase() throws SQLException {
+    public static Connection connectToDatabase() throws SQLException {
         try {
             Properties configuration = new Properties();
             InputStream inputStream = DatabaseManager.class.getClassLoader()

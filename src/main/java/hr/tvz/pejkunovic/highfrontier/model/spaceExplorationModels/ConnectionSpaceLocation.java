@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Connection {
+public class ConnectionSpaceLocation {
     Long id;
-    SpaceLocation source;
-    SpaceLocation destination;
+    Long sourceId;
+    Long destinationId;
     Integer thrustCost;
 }

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SpaceLocation {
@@ -14,4 +13,11 @@ public class SpaceLocation {
     private String name;
     private LocationType type;
     private Integer resourceRichness;
+
+    public SpaceLocation(Long id, String name, LocationType type, Integer resourceRichness) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.resourceRichness = resourceRichness;
+    }
 }
