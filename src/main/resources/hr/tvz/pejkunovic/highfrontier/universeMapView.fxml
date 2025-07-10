@@ -50,5 +50,7 @@
       <Button fx:id="haldenaButton" layoutX="1052.0" layoutY="182.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Haldena" />
       <Button fx:id="europaButton" layoutX="1315.0" layoutY="331.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Europa" />
       <Button fx:id="earthButton" layoutX="533.0" layoutY="205.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Earth" />
+      <Button fx:id="roverShopButton" layoutX="81.0" layoutY="42.0" mnemonicParsing="false" onAction="#openRoverShop" text="Buy rovers" />
+      <Button layoutX="176.0" layoutY="42.0" mnemonicParsing="false" onAction="#openEngineShop" text="Buy engine" />
    </children>
 </AnchorPane>

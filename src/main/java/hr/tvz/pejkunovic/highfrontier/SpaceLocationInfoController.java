@@ -2,6 +2,7 @@ package hr.tvz.pejkunovic.highfrontier;
 
 import hr.tvz.pejkunovic.highfrontier.database.ConnectionSpaceLocationUtil;
 import hr.tvz.pejkunovic.highfrontier.database.SpaceLocationUtil;
+import hr.tvz.pejkunovic.highfrontier.model.Player;
 import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.ConnectionSpaceLocation;
 import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
 import javafx.fxml.FXML;
@@ -9,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.sql.*;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class SpaceLocationInfoController {
@@ -22,29 +21,37 @@ public class SpaceLocationInfoController {
     private Text thrustCost;
     @FXML
     Button moveButton;
+    private UniverseMapController universeMapController;
+    private Player player;
     private String buttonName;
     private SpaceLocation spaceLocation;
-    private Optional<ConnectionSpaceLocation> connectionSpaceLocation;
     public void initialize(){
 
+    }
+    public void setUp(String buttonName, Player player, UniverseMapController parentController) {
+        this.buttonName = buttonName;
+        this.player = player;
+        this.universeMapController = parentController;
+        setUpInitial();
     }
     public void setButtonName(String buttonName) {
         this.buttonName = buttonName;
         setUpInitial();
     }
     public void setUpInitial () {
+         Optional<ConnectionSpaceLocation> connectionSpaceLocation;
         try {
             spaceLocation = SpaceLocationUtil.getSpaceLocationByName(buttonName);
-            connectionSpaceLocation= ConnectionSpaceLocationUtil.getConnectionByLocationIds(UniverseMapController.player.getLocationId(), spaceLocation.getId());
+            connectionSpaceLocation= ConnectionSpaceLocationUtil.getConnectionByLocationIds(player.getLocationId(), spaceLocation.getId());
            if(connectionSpaceLocation.isPresent()){
                thrustCost.setText(connectionSpaceLocation.get().getThrustCost().toString());
-           } else if(UniverseMapController.player.getLocationId().equals(spaceLocation.getId())) {
+           } else if(player.getLocationId().equals(spaceLocation.getId())) {
                thrustCost.setText("Current location");
            }
            else {
                thrustCost.setText("Unreacheable");
            }
-           if(thrustCost.getText().equals("Unreacheable") ||thrustCost.equals("Current location")){
+           if(thrustCost.getText().equals("Unreacheable") || thrustCost.equals("Current location")){
                moveButton.setDisable(true);
            }
            else {
@@ -58,7 +65,8 @@ public class SpaceLocationInfoController {
 
     }
     public void move(){
-        UniverseMapController.player.setLocationId(spaceLocation.getId());
-        UniverseMapController.updateColors();
+        /*player.setLocationId(spaceLocation.getId());
+        universeMapController.updateColors();*/
+        universeMapController.updatePlayerLocation(spaceLocation.getId());
     }
 }
