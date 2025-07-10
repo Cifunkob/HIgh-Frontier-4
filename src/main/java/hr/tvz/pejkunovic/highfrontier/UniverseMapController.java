@@ -87,11 +87,15 @@ public class UniverseMapController {
     }
 
     public void openRoverShop(){
-       controllerOpenUtil.openRoverShop();
+       controllerOpenUtil.openRoverShop(player);
     }
 
     public void openEngineShop(){
        controllerOpenUtil.openEngineShop(player);
+    }
+
+    public void openPlayerResources(){
+        controllerOpenUtil.openResourceInformation(player);
     }
 
     public void setupPlayer(){

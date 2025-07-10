@@ -32,7 +32,7 @@ public class MotorCardsUtil {
         return motorCardList;
     }
 
-    public static MotorCard getMotorCardById(String id) throws SQLException {
+    public static MotorCard getMotorCardById(Long id) throws SQLException {
         MotorCard motorCard = null;
 
         String sqlQuery = "SELECT id, name, mass, cost, thrust, isp FROM motor_cards WHERE id = ?";
@@ -40,7 +40,7 @@ public class MotorCardsUtil {
         try (Connection connection = DatabaseManager.connectToDatabase();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
 
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {

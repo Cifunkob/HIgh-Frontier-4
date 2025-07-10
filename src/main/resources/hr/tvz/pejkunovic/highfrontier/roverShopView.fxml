@@ -15,7 +15,7 @@
             <Label layoutX="82.0" layoutY="95.0" text="4" />
             <Label layoutX="13.0" layoutY="123.0" text="Efficiency:" />
             <Label layoutX="82.0" layoutY="123.0" text="0.85" />
-            <Button layoutX="33.0" layoutY="349.0" mnemonicParsing="false" text="Purchase" />
+            <Button fx:id="buyExplorerButton" layoutX="33.0" layoutY="349.0" mnemonicParsing="false" onAction="#buyRover" text="Purchase" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="136.0" prefHeight="400.0" prefWidth="136.0">
@@ -27,7 +27,7 @@
             <Label layoutX="82.0" layoutY="95.0" text="3" />
             <Label layoutX="13.0" layoutY="123.0" text="Efficiency:" />
             <Label layoutX="82.0" layoutY="123.0" text="0.78" />
-            <Button layoutX="33.0" layoutY="349.0" mnemonicParsing="false" text="Purchase" />
+            <Button fx:id="buySurveyorButton" layoutX="33.0" layoutY="349.0" mnemonicParsing="false" onAction="#buyRover" text="Purchase" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="273.0" prefHeight="400.0" prefWidth="136.0">
@@ -39,7 +39,7 @@
             <Label layoutX="82.0" layoutY="95.0" text="2" />
             <Label layoutX="13.0" layoutY="123.0" text="Efficiency:" />
             <Label layoutX="82.0" layoutY="123.0" text="65" />
-            <Button layoutX="33.0" layoutY="349.0" mnemonicParsing="false" text="Purchase" />
+            <Button fx:id="buyHaulerButton" layoutX="33.0" layoutY="349.0" mnemonicParsing="false" onAction="#buyRover" text="Purchase" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="409.0" prefHeight="400.0" prefWidth="136.0">
@@ -51,7 +51,7 @@
             <Label layoutX="82.0" layoutY="95.0" text="2" />
             <Label layoutX="13.0" layoutY="123.0" text="Efficiency:" />
             <Label layoutX="82.0" layoutY="123.0" text="0.72" />
-            <Button layoutX="33.0" layoutY="349.0" mnemonicParsing="false" text="Purchase" />
+            <Button fx:id="buyNomadButton" layoutX="33.0" layoutY="349.0" mnemonicParsing="false" onAction="#buyRover" text="Purchase" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="545.0" prefHeight="400.0" prefWidth="136.0">
@@ -63,7 +63,7 @@
             <Label layoutX="82.0" layoutY="95.0" text="4" />
             <Label layoutX="13.0" layoutY="123.0" text="Efficiency:" />
             <Label layoutX="82.0" layoutY="123.0" text="0.88" />
-            <Button layoutX="33.0" layoutY="349.0" mnemonicParsing="false" text="Purchase" />
+            <Button fx:id="buyPioneerButton" layoutX="33.0" layoutY="349.0" mnemonicParsing="false" onAction="#buyRover" text="Purchase" />
          </children>
       </AnchorPane>
    </children>

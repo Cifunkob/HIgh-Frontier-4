@@ -1,8 +1,6 @@
 package hr.tvz.pejkunovic.highfrontier.util;
 
-import hr.tvz.pejkunovic.highfrontier.EngineShopController;
-import hr.tvz.pejkunovic.highfrontier.SpaceLocationInfoController;
-import hr.tvz.pejkunovic.highfrontier.UniverseMapController;
+import hr.tvz.pejkunovic.highfrontier.*;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -38,10 +36,12 @@ public class ControllerOpenUtil {
         }
     }
 
-    public void openRoverShop(){
+    public void openRoverShop(Player player){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/roverShopView.fxml"));
             Parent root = fxmlLoader.load();
+            RoverShopController controller = fxmlLoader.getController();
+            controller.setUp(player);
             Stage popupStage = new Stage();
             popupStage.setTitle("Rover shop");
             popupStage.setScene(new Scene(root));
@@ -77,4 +77,27 @@ public class ControllerOpenUtil {
             alert.showAndWait();
         }
     }
+
+    public void openResourceInformation(Player player){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/playerResourcesView.fxml"));
+            Parent root = fxmlLoader.load();
+            ResourcesInformationController controller = fxmlLoader.getController();
+            controller.setUp(player);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Resources information");
+            popupStage.setScene(new Scene(root));
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Failed to load rover shop.");
+            alert.showAndWait();
+        }
+    }
 }
+
+//ZNACI RADIS NA TOME DA DEPLOYAS NA PLANET ROVERA

@@ -4,6 +4,7 @@ import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.sql.SQLException;
@@ -58,7 +59,6 @@ public class EngineShopController {
         }
     }
 
-
     @FXML
     private void buyEngine(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
@@ -74,6 +74,11 @@ public class EngineShopController {
     private void buySpecificEngine(Long engineId) {
         try {
             cardUtil.addMotorToPlayer(player.getId(), engineId);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Engine Purchased");
+            alert.setHeaderText("Engine Purchased");
+            alert.setContentText("Player "+ player.getName() +" successfully bought an engine");
+            alert.showAndWait();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.pejkunovic.highfrontier.ResourcesInformationController">
+   <children>
+      <Line endX="-77.80000305175781" endY="247.79998779296875" layoutX="132.0" layoutY="77.0" startX="-77.80000305175781" startY="-6.600006103515625" />
+      <Line endX="-77.80000305175781" endY="247.79998779296875" layoutX="213.0" layoutY="78.0" startX="-77.80000305175781" startY="-6.600006103515625" />
+      <Line endX="39.60002136230469" endY="-31.399993896484375" layoutX="55.0" layoutY="55.0" startX="-0.3000030517578125" startY="14.899993896484375" />
+      <Line endX="30.307113647460938" endY="-42.10710144042969" layoutX="65.0" layoutY="65.0" startX="69.69999694824219" startY="5.899993896484375" />
+      <Line endX="-20.300003051757812" endY="-1.70001220703125" layoutX="75.0" layoutY="327.0" startX="-58.00001525878906" startY="27.0" />
+      <Line endX="-26.599990844726562" endY="57.79998779296875" layoutX="194.0" layoutY="297.0" startX="-58.00001525878906" startY="27.0" />
+      <Line endX="-49.20002746582031" endY="-17.20001220703125" layoutX="115.0" layoutY="356.0" startX="-100.0" />
+      <Line endX="-63.80000305175781" endY="-17.0" layoutX="152.0" layoutY="379.0" startX="-85.49293518066406" startY="-40.9071044921875" />
+      <Line endX="-21.200027465820312" endY="-8.0" layoutX="135.0" layoutY="350.0" startX="-49.20002746582031" startY="11.20001220703125" />
+      <Line endX="33.10710144042969" endY="-7.492919921875" layoutX="135.0" layoutY="363.0" startX="-20.492935180664062" startY="-21.70709228515625" />
+      <Circle fill="WHITE" layoutX="95.0" layoutY="115.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="210.0" layoutY="47.0" text="Your resources" />
+      <Label fx:id="engineLabel" layoutX="151.0" layoutY="161.0" text="Your rocket has a blank blank engine" />
+      <Label layoutX="26.0" layoutY="376.0" text="Your rovers" />
+      <Label fx:id="roversLabel" alignment="TOP_LEFT" layoutX="26.0" layoutY="407.0" prefHeight="172.0" prefWidth="303.0" />
+   </children>
 </AnchorPane>

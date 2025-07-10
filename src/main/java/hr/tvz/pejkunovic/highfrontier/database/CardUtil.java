@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CardUtil {
 
@@ -42,7 +45,7 @@ public class CardUtil {
     }
 
     public void addRoverToPlayer(long playerId, long roverId) throws SQLException {
-        String sqlInsert = "INSERT INTO player_rover (player_id, rover_id) VALUES (?, ?)";
+        String sqlInsert = "INSERT INTO player_rovers (player_id, rover_id) VALUES (?, ?)";
 
         try (Connection connection = DatabaseManager.connectToDatabase();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
@@ -55,5 +58,49 @@ public class CardUtil {
             String message = "Failed to add rover card to player.";
             throw new SQLException(message, ex);
         }
+    }
+
+    public Long getMotorIdByPlayerId(Long playerId) throws SQLException {
+        String sqlQuery = "SELECT motor_id FROM player_motor WHERE player_id = ?";
+
+        try (Connection connection = DatabaseManager.connectToDatabase();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            preparedStatement.setLong(1, playerId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getLong("motor_id");
+                } else {
+                    return null;
+                }
+            }
+
+        } catch (SQLException ex) {
+            String message = "Failed to retrieve motor ID for player.";
+            throw new SQLException(message, ex);
+        }
+    }
+
+    public Optional<List<Long>> getRoversByPlayerId(long playerId) {
+        String sql = "SELECT rover_id FROM player_rovers WHERE player_id = ?";
+        List<Long> roverIds = new ArrayList<>();
+
+        try (Connection connection = DatabaseManager.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, playerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    roverIds.add(resultSet.getLong("rover_id"));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Consider logging this instead
+            return Optional.empty(); // Optionally wrap logging with a logger
+        }
+
+        return roverIds.isEmpty() ? Optional.empty() : Optional.of(roverIds);
     }
 }

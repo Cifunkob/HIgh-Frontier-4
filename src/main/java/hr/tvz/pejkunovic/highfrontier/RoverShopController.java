@@ -6,6 +6,7 @@ import hr.tvz.pejkunovic.highfrontier.model.Player;
 import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.sql.SQLException;
@@ -51,6 +52,11 @@ public class RoverShopController {
     private void buySpecificRover(Long roverId) {
         try {
             cardUtil.addRoverToPlayer(player.getId(), roverId);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Rover Purchased");
+            alert.setHeaderText("Rover Purchased");
+            alert.setContentText("Player "+ player.getName() +" successfully bought a rover");
+            alert.showAndWait();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

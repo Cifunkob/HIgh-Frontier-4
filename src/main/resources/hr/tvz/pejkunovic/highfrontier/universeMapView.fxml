@@ -52,5 +52,6 @@
       <Button fx:id="earthButton" layoutX="533.0" layoutY="205.0" mnemonicParsing="false" onAction="#openSpaceObjectMenu" text="Earth" />
       <Button fx:id="roverShopButton" layoutX="81.0" layoutY="42.0" mnemonicParsing="false" onAction="#openRoverShop" text="Buy rovers" />
       <Button layoutX="176.0" layoutY="42.0" mnemonicParsing="false" onAction="#openEngineShop" text="Buy engine" />
+      <Button layoutX="278.0" layoutY="42.0" mnemonicParsing="false" onAction="#openPlayerResources" text="Player resources" />
    </children>
 </AnchorPane>

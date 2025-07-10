@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RoverCardsUtil {
 
-    private RoverCardsUtil() {}
+    public RoverCardsUtil() {}
 
     public static List<RoverCard> getAllRoverCards() throws SQLException {
         List<RoverCard> roverCardList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class RoverCardsUtil {
         return roverCardList;
     }
 
-    public static RoverCard getRoverCardById(String id) throws SQLException {
+    public static RoverCard getRoverCardById(Long id) throws SQLException {
         RoverCard roverCard = null;
 
         String sqlQuery = "SELECT id, name, mass, cost, efficiency FROM rover_cards WHERE id = ?";
@@ -40,7 +40,7 @@ public class RoverCardsUtil {
         try (Connection connection = DatabaseManager.connectToDatabase();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
 
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
