@@ -6,9 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerUtil {
+public class PlayerDatabaseUtil {
 
-    private PlayerUtil() {}
+    private PlayerDatabaseUtil() {}
 
     public static List<Player> getAllPlayers() throws SQLException {
         List<Player> playerList = new ArrayList<>();
@@ -63,6 +63,40 @@ public class PlayerUtil {
         Long locationId = resultSet.getLong("locationId");
 
         return new Player(id, name, fuel, water, locationId, null, null);
+    }
+
+    public static void updatePlayerFuel(Long playerId, Integer newFuel) throws SQLException {
+        String sql = "UPDATE player SET fuel = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseManager.connectToDatabase();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, newFuel);
+            stmt.setLong(2, playerId);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        }
+    }
+
+    public static void updatePlayerWater(Long playerId, Integer newWater) throws SQLException {
+        String sql = "UPDATE player SET water = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseManager.connectToDatabase();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, newWater);
+            stmt.setLong(2, playerId);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        }
     }
 
 }

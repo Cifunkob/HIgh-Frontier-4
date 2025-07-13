@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.pejkunovic.highfrontier.DeploymentController">
+   <children>
+      <TableView fx:id="tableView" layoutY="57.0" prefHeight="337.0" prefWidth="290.0">
+        <columns>
+          <TableColumn fx:id="locationColumn" prefWidth="136.79999387264252" text="Space object" />
+          <TableColumn fx:id="roverColumn" prefWidth="153.60003662109375" text="Rover" />
+        </columns>
+      </TableView>
+      <Label layoutX="97.0" layoutY="14.0" text="Your deployments" />
+   </children>
+</AnchorPane>

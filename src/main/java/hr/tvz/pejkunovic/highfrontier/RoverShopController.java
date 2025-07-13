@@ -1,7 +1,8 @@
 package hr.tvz.pejkunovic.highfrontier;
 
 import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
-import hr.tvz.pejkunovic.highfrontier.database.RoverCardsUtil;
+import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.database.RoverCardsDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
 import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
 import javafx.event.ActionEvent;
@@ -10,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 public class RoverShopController {
@@ -51,16 +51,30 @@ public class RoverShopController {
 
     private void buySpecificRover(Long roverId) {
         try {
-            cardUtil.addRoverToPlayer(player.getId(), roverId);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Rover Purchased");
-            alert.setHeaderText("Rover Purchased");
-            alert.setContentText("Player "+ player.getName() +" successfully bought a rover");
-            alert.showAndWait();
+            RoverCard roverCard=RoverCardsDatabaseUtil.getRoverCardById(roverId);
+            if(player.getWater()>=roverCard.getCost()){
+                player.setWater(player.getWater()-roverCard.getCost());
+                try {
+                    PlayerDatabaseUtil.updatePlayerWater(player.getId(), player.getWater());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                cardUtil.addRoverToPlayer(player.getId(), roverId);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Rover Purchased");
+                alert.setHeaderText("Rover Purchased");
+                alert.setContentText("Player "+ player.getName() +" successfully bought a rover");
+                alert.showAndWait();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Not enough water to buy a rover!");
+                alert.setHeaderText("You cannot afford this rover!");
+                alert.setContentText("Try gathering more water or go with a cheaper option");
+                alert.showAndWait();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 }
 
-//MORAS PROMIJENIT CONTROLLER TJ POZIV VIEWA

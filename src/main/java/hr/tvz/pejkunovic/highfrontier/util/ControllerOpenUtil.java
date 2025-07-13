@@ -1,7 +1,10 @@
 package hr.tvz.pejkunovic.highfrontier.util;
 
 import hr.tvz.pejkunovic.highfrontier.*;
+import hr.tvz.pejkunovic.highfrontier.model.Deployment;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
+import hr.tvz.pejkunovic.highfrontier.model.VictoryPointsPlayer;
+import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ControllerOpenUtil {
     public void openSpaceObjectMenu(ActionEvent event, Player player, UniverseMapController parentController){
@@ -25,6 +29,9 @@ public class ControllerOpenUtil {
             popupStage.setTitle("Space Object Information");
             popupStage.setScene(new Scene(root));
             popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.focusedProperty().addListener(event1 ->{
+                controller.checkIsRoverOnPlanet();
+            });
             popupStage.show();
 
         } catch (IOException e) {
@@ -98,6 +105,68 @@ public class ControllerOpenUtil {
             alert.showAndWait();
         }
     }
+
+    public void openChooseRover(Player player, SpaceLocation spaceLocation){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/chooseRoverToPutView.fxml"));
+            Parent root = fxmlLoader.load();
+            ChooseRoverToPutController controller = fxmlLoader.getController();
+            controller.setUp(player,spaceLocation);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Choose rover to put");
+            popupStage.setScene(new Scene(root));
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Failed to load rover shop.");
+            alert.showAndWait();
+        }
+    }
+
+    public void openDeployment(Player player){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/deploymentsView.fxml"));
+            Parent root = fxmlLoader.load();
+            DeploymentController controller = fxmlLoader.getController();
+            controller.setUp(player);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Deployment information");
+            popupStage.setScene(new Scene(root));
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Failed to load rover shop.");
+            alert.showAndWait();
+        }
+    }
+
+    public void openOpponentResourcesInformation(Player opponent, VictoryPointsPlayer victoryPointsPlayer, List<Deployment> opponentDeployment){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/opponentResourcesView.fxml"));
+            Parent root = fxmlLoader.load();
+            OpponenetResourcesInformationController controller = fxmlLoader.getController();
+            controller.setUp(opponent,opponentDeployment,victoryPointsPlayer);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Opponent information");
+            popupStage.setScene(new Scene(root));
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Failed to load rover shop.");
+            alert.showAndWait();
+        }
+    }
 }
 
-//ZNACI RADIS NA TOME DA DEPLOYAS NA PLANET ROVERA

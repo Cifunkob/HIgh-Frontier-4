@@ -6,9 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoverCardsUtil {
+public class RoverCardsDatabaseUtil {
 
-    public RoverCardsUtil() {}
+    public RoverCardsDatabaseUtil() {}
 
     public static List<RoverCard> getAllRoverCards() throws SQLException {
         List<RoverCard> roverCardList = new ArrayList<>();

@@ -5,11 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.tvz.pejkunovic.highfrontier.ChooseRoverToPutController">
    <children>
-      <ChoiceBox layoutX="45.0" layoutY="116.0" prefHeight="20.0" prefWidth="294.0" />
+      <ChoiceBox fx:id="roverChoiceBox" layoutX="45.0" layoutY="116.0" prefHeight="20.0" prefWidth="294.0" />
       <Label layoutX="87.0" layoutY="46.0" text="Choose which rover you want to deploy" />
-      <Button layoutX="150.0" layoutY="190.0" mnemonicParsing="false" text="Deploy rover" />
+      <Button layoutX="150.0" layoutY="190.0" mnemonicParsing="false" onAction="#deployRover" text="Deploy rover" />
    </children>
 </AnchorPane>

@@ -1,7 +1,10 @@
 package hr.tvz.pejkunovic.highfrontier;
 
 import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
+import hr.tvz.pejkunovic.highfrontier.database.MotorCardsDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
+import hr.tvz.pejkunovic.highfrontier.model.cardModels.MotorCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,7 +26,7 @@ public class EngineShopController {
     private Button buyNuclearPulseButton;
     @FXML
     private Button buySolarThermalButton;
-    public Player player;
+    private Player player;
     private CardUtil cardUtil=new CardUtil();
     private Map<String, Button> engineButtons=new HashMap<>();
 
@@ -72,16 +75,31 @@ public class EngineShopController {
     }
 
     private void buySpecificEngine(Long engineId) {
-        try {
-            cardUtil.addMotorToPlayer(player.getId(), engineId);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Engine Purchased");
-            alert.setHeaderText("Engine Purchased");
-            alert.setContentText("Player "+ player.getName() +" successfully bought an engine");
-            alert.showAndWait();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            MotorCard motorCard = null;
+            try {
+                motorCard = MotorCardsDatabaseUtil.getMotorCardById(engineId);
+                if (player.getWater() > motorCard.getCost()) {
+                    player.setWater(player.getWater() - motorCard.getCost());
+                    PlayerDatabaseUtil.updatePlayerWater(player.getId(), player.getWater());
+                    cardUtil.addMotorToPlayer(player.getId(), engineId);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Engine Purchased");
+                    alert.setHeaderText("Engine Purchased");
+                    alert.setContentText("Player " + player.getName() + " successfully bought an engine");
+                    alert.showAndWait();
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Not enough water to buy an engine!");
+                    alert.setHeaderText("You cannot afford this engine!");
+                    alert.setContentText("Gaather resources or go with a cheaper option");
+                    alert.showAndWait();
+                }
+            } catch(SQLException e){
+                    throw new RuntimeException(e);
+                }
+            }
         }
-    }
 
-}
+
+

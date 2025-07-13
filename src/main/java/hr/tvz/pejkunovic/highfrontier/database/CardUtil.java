@@ -97,10 +97,28 @@ public class CardUtil {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Consider logging this instead
-            return Optional.empty(); // Optionally wrap logging with a logger
+            ex.printStackTrace();
+            return Optional.empty();
         }
 
         return roverIds.isEmpty() ? Optional.empty() : Optional.of(roverIds);
+    }
+
+    public boolean removeRoverFromPlayer(long playerId, long roverId) {
+        String sql = "DELETE FROM player_rovers WHERE player_id = ? AND rover_id = ? LIMIT 1";
+
+        try (Connection connection = DatabaseManager.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, playerId);
+            statement.setLong(2, roverId);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

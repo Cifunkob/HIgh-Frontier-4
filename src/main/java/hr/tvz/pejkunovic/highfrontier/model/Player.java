@@ -1,7 +1,6 @@
 package hr.tvz.pejkunovic.highfrontier.model;
 
 import hr.tvz.pejkunovic.highfrontier.model.cardModels.TechnologyCard;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class Player {
         private Integer water;
         private Long locationId;
         private List<TechnologyCard> techCards;
-        private List<Outpost> outposts;
+        private List<Deployment> outposts;
 }

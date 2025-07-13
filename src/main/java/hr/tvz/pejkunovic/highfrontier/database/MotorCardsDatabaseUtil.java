@@ -6,9 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MotorCardsUtil {
+public class MotorCardsDatabaseUtil {
 
-    private MotorCardsUtil() {}
+    private MotorCardsDatabaseUtil() {}
 
     public static List<MotorCard> getAllMotorCards() throws SQLException {
         List<MotorCard> motorCardList = new ArrayList<>();
