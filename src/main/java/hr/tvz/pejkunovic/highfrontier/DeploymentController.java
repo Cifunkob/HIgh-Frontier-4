@@ -1,9 +1,9 @@
 package hr.tvz.pejkunovic.highfrontier;
 
 import hr.tvz.pejkunovic.highfrontier.database.DeploymentDatabaseUtil;
-import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.RoverCardsDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.SpaceLocationDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.exception.PlayerException;
 import hr.tvz.pejkunovic.highfrontier.model.Deployment;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,7 +32,7 @@ public class DeploymentController {
                     return new SimpleStringProperty(
                             SpaceLocationDatabaseUtil.getSpaceLocationById(celldata.getValue().getSpaceLocationId()).getName());
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    throw new PlayerException(e);
                 }
             });
             roverColumn.setCellValueFactory(celldata -> {
@@ -40,12 +40,12 @@ public class DeploymentController {
                     return new SimpleStringProperty(
                             RoverCardsDatabaseUtil.getRoverCardById(celldata.getValue().getRoverCardId()).getName());
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    throw new PlayerException(e);
                 }
             });
             tableView.setItems(FXCollections.observableList(deployments));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new PlayerException(e);
         }
     }
     public void setUp(Player player){

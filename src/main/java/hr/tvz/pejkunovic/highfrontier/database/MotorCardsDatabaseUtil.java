@@ -1,6 +1,6 @@
 package hr.tvz.pejkunovic.highfrontier.database;
 
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.MotorCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.MotorCard;
 
 import java.sql.*;
 import java.util.ArrayList;

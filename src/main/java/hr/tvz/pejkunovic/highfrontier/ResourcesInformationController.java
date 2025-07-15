@@ -4,16 +4,16 @@ import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
 import hr.tvz.pejkunovic.highfrontier.database.MotorCardsDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.RoverCardsDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.exception.BuyingException;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.MotorCard;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.MotorCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.RoverCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 public class ResourcesInformationController {
@@ -25,16 +25,15 @@ public class ResourcesInformationController {
     private Label waterLabel;
     @FXML
     private Label fuelLabel;
-    Player player;
-    CardUtil cardUtil=new CardUtil();
-    RoverCardsDatabaseUtil roverCardsDatabaseUtil;
-    Boolean playerHasMotor= null;
+    private Player player;
+    private CardUtil cardUtil=new CardUtil();
 
     public void initialize(){
      engineLabel.setText("Your rocket currently has no engine");
     }
 
     public void setUp(Player player){
+        boolean playerHasMotor;
         this.player=player;
         waterLabel.setText(player.getWater().toString());
         fuelLabel.setText(player.getFuel().toString());
@@ -45,19 +44,19 @@ public class ResourcesInformationController {
                 engineLabel.setText("Your rocket has a "+motorCard.getName()+" engine");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BuyingException(e);
         }
         Optional<List<Long>> roversList=cardUtil.getRoversByPlayerId(player.getId());
         if(roversList.isPresent()){
             List<RoverCard> roverCards = roversList.get().stream().map(id -> {
                         try {
-                            return roverCardsDatabaseUtil.getRoverCardById(id);
+                            return RoverCardsDatabaseUtil.getRoverCardById(id);
                         } catch (SQLException e) {
                             e.printStackTrace();
                             return null;
                         }
                     })
-                    .collect(Collectors.toList());
+                    .toList();
             roverCards.stream().forEach(card -> roversLabel.setText(roversLabel.getText()+"\n"+card.getName()));
         }
     }
@@ -72,7 +71,7 @@ public class ResourcesInformationController {
                 waterLabel.setText(player.getWater().toString());
                 fuelLabel.setText(player.getFuel().toString());
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new BuyingException(e);
             }
         }
     }

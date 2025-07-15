@@ -1,6 +1,8 @@
 package hr.tvz.pejkunovic.highfrontier.database;
 
 
+import hr.tvz.pejkunovic.highfrontier.exception.RemoteChatException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -19,7 +21,7 @@ public class DatabaseManager {
                     .getResourceAsStream("application.properties");
 
             if (inputStream == null) {
-                throw new RuntimeException("application.properties not found");
+                throw new RemoteChatException("application.properties not found");
             }
 
             configuration.load(inputStream);

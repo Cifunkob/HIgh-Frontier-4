@@ -14,20 +14,23 @@ public class PlayerOneServerThread implements Runnable{
     public static final Integer PLAYER_TWO_SERVER_PORT = 1101;
     public static final Integer PLAYER_ONE_SERVER_PORT = 1100;
     public static final String HOSTNAME = "localhost";
+    private static boolean running=true;
+
+    private final UniverseMapController universeMapController;
+
+    public PlayerOneServerThread(UniverseMapController universeMapController) {
+        this.universeMapController = universeMapController;
+    }
 
     @Override
     public void run() {
-        System.out.println("I ENTERED THE SERVER THREAD FOR PLAYER ONE!");
         acceptRequestsFromPlayerTwo();
     }
 
-    private static void acceptRequestsFromPlayerTwo() {
+    private void acceptRequestsFromPlayerTwo() {
         try (ServerSocket serverSocket = new ServerSocket(PLAYER_ONE_SERVER_PORT)){
-            System.err.println("Player two server listening on port: " + serverSocket.getLocalPort());
-
-            while (true) {
+            while (running) {
                 Socket clientSocket = serverSocket.accept();
-                System.err.println("Player one client connected from port: " + clientSocket.getPort());
                 new Thread(() ->  processSerializablePlayerTwoClient(clientSocket)).start();
             }
         }  catch (IOException e) {
@@ -35,15 +38,13 @@ public class PlayerOneServerThread implements Runnable{
         }
     }
 
-    private static void processSerializablePlayerTwoClient(Socket clientSocket) {
+    private void processSerializablePlayerTwoClient(Socket clientSocket) {
         try (ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
              )
         {
             GameState receivedGameState = (GameState) ois.readObject();
-            UniverseMapController.refreshGameState(receivedGameState,2L);
-            System.out.println("Current game state received!");
-            System.out.println(receivedGameState.toString());
+            universeMapController.refreshGameState(receivedGameState,2L);
             oos.writeObject(Boolean.TRUE);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -51,4 +52,3 @@ public class PlayerOneServerThread implements Runnable{
     }
 }
 
-//MORAS IMPLEMENTIRATI REFRESH GAMESTATE

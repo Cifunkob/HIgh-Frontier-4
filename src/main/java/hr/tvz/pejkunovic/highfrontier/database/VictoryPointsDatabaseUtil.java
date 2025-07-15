@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VictoryPointsDatabaseUtil {
+
+    private VictoryPointsDatabaseUtil() {}
+
     public static void updateVictoryPointsByPlayerId(long playerId, double victoryPointsToAdd) throws SQLException {
         String sqlQuery = "UPDATE VICTORY_POINTS_PLAYER SET victoryPoints = victoryPoints + ? WHERE playerId = ?";
 

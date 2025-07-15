@@ -1,10 +1,8 @@
 package hr.tvz.pejkunovic.highfrontier.util;
 
 import hr.tvz.pejkunovic.highfrontier.*;
-import hr.tvz.pejkunovic.highfrontier.model.Deployment;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.VictoryPointsPlayer;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.SpaceLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +13,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ControllerOpenUtil {
+
+    public static final String ERROR="Error";
+
     public void openSpaceObjectMenu(ActionEvent event, Player player, UniverseMapController parentController){
         try {
             String buttonName = ((Button)event.getSource()).getText();
@@ -29,15 +29,15 @@ public class ControllerOpenUtil {
             popupStage.setTitle("Space Object Information");
             popupStage.setScene(new Scene(root));
             popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.focusedProperty().addListener(event1 ->{
-                controller.checkIsRoverOnPlanet();
-            });
+            popupStage.focusedProperty().addListener(event1 ->
+                controller.checkIsRoverOnPlanet()
+            );
             popupStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
+            alert.setHeaderText(ERROR);
             alert.setContentText("Failed to load the space object menu.");
             alert.showAndWait();
         }
@@ -58,7 +58,7 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
+            alert.setHeaderText(ERROR);
             alert.setContentText("Failed to load rover shop.");
             alert.showAndWait();
         }
@@ -79,8 +79,8 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Failed to load rover shop.");
+            alert.setHeaderText(ERROR);
+            alert.setContentText("Failed to load engine shop.");
             alert.showAndWait();
         }
     }
@@ -100,8 +100,8 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Failed to load rover shop.");
+            alert.setHeaderText(ERROR);
+            alert.setContentText("Failed to resource information.");
             alert.showAndWait();
         }
     }
@@ -121,8 +121,8 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Failed to load rover shop.");
+            alert.setHeaderText(ERROR);
+            alert.setContentText("Failed to load Put rover menu.");
             alert.showAndWait();
         }
     }
@@ -142,18 +142,18 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Failed to load rover shop.");
+            alert.setHeaderText(ERROR);
+            alert.setContentText("Failed to load deployment menu.");
             alert.showAndWait();
         }
     }
 
-    public void openOpponentResourcesInformation(Player opponent, VictoryPointsPlayer victoryPointsPlayer, List<Deployment> opponentDeployment){
+    public void openOpponentResourcesInformation(Player opponent){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hr/tvz/pejkunovic/highfrontier/opponentResourcesView.fxml"));
             Parent root = fxmlLoader.load();
             OpponenetResourcesInformationController controller = fxmlLoader.getController();
-            controller.setUp(opponent,opponentDeployment,victoryPointsPlayer);
+            controller.setUp(opponent);
             Stage popupStage = new Stage();
             popupStage.setTitle("Opponent information");
             popupStage.setScene(new Scene(root));
@@ -163,8 +163,8 @@ public class ControllerOpenUtil {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Failed to load rover shop.");
+            alert.setHeaderText(ERROR);
+            alert.setContentText("Failed to load opponent resources.");
             alert.showAndWait();
         }
     }

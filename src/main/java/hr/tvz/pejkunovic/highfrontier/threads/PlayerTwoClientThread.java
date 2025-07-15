@@ -6,7 +6,6 @@ import hr.tvz.pejkunovic.highfrontier.model.VictoryPointsPlayer;
 import hr.tvz.pejkunovic.highfrontier.util.GameStateUtils;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
@@ -32,20 +31,17 @@ public class PlayerTwoClientThread implements Runnable{
 
     private void sendRequest() {
         try (Socket clientSocket = new Socket(HOSTNAME, PLAYER_ONE_SERVER_PORT)){
-            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" +clientSocket.getPort());
 
             sendSerializableRequest(clientSocket);
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
         }
     }
 
-    private void sendSerializableRequest(Socket client) throws IOException, ClassNotFoundException {
+    private void sendSerializableRequest(Socket client) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
-        ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
         GameState currentGameState = GameStateUtils.createCurrentGameState(deployments, victoryPointsPlayers, playerTurn );
         oos.writeObject(currentGameState);
-        System.out.println("Game state received confirmation: " + (Boolean) ois.readObject());
     }
 }

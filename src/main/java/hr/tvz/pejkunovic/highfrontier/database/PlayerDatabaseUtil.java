@@ -25,7 +25,6 @@ public class PlayerDatabaseUtil {
             }
         } catch (SQLException ex) {
             String message = "An error occurred while retrieving all players.";
-            System.out.println(ex.getErrorCode());
             throw new SQLException(message, ex);
         }
 
@@ -99,4 +98,20 @@ public class PlayerDatabaseUtil {
         }
     }
 
+    public static void updatePlayerLocation(Long playerId, Long newLocationId) throws SQLException {
+        String sql = "UPDATE player SET locationId = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseManager.connectToDatabase();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, newLocationId);
+            stmt.setLong(2, playerId);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        }
+    }
 }

@@ -1,10 +1,11 @@
 package hr.tvz.pejkunovic.highfrontier;
 
 import hr.tvz.pejkunovic.highfrontier.database.*;
+import hr.tvz.pejkunovic.highfrontier.exception.MovementException;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.MotorCard;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.ConnectionSpaceLocation;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.MotorCard;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.ConnectionSpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.SpaceLocation;
 import hr.tvz.pejkunovic.highfrontier.util.ControllerOpenUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,6 +33,7 @@ public class SpaceLocationInfoController {
     private CardUtil cardUtil = new CardUtil();
     private SpaceLocation spaceLocation;
     Integer fuelCost;
+    public static final String CURRENT_LOCATION="Current location";
 
     public void setUp(String buttonName, Player player, UniverseMapController parentController) {
         this.buttonName = buttonName;
@@ -41,52 +43,48 @@ public class SpaceLocationInfoController {
         checkIsRoverOnPlanet();
     }
 
-    public void setButtonName(String buttonName) {
-        this.buttonName = buttonName;
-        setUpInitial();
-    }
-
     public void setUpInitial() {
-        Optional<ConnectionSpaceLocation> connectionSpaceLocation;
         try {
             spaceLocation = SpaceLocationDatabaseUtil.getSpaceLocationByName(buttonName);
-            connectionSpaceLocation = ConnectionSpaceLocationUtil.getConnectionByLocationIds(player.getLocationId(), spaceLocation.getId());
-            if (connectionSpaceLocation.isPresent()) {
-                thrustCost.setText(connectionSpaceLocation.get().getThrustCost().toString());
+
+            Optional<ConnectionSpaceLocation> connection = ConnectionSpaceLocationUtil.getConnectionByLocationIds(
+                    player.getLocationId(), spaceLocation.getId());
+
+            String thrustText;
+            if (connection.isPresent()) {
+                thrustText = connection.get().getThrustCost().toString();
             } else if (player.getLocationId().equals(spaceLocation.getId())) {
-                thrustCost.setText("Current location");
+                thrustText = CURRENT_LOCATION;
             } else {
-                thrustCost.setText("Unreacheable");
+                thrustText = "Unreacheable";
             }
-            if (thrustCost.getText().equals("Unreacheable") || thrustCost.getText().equals("Current location")) {
-                moveButton.setDisable(true);
-            } else {
-                moveButton.setDisable(false);
-            }
-            if (!thrustCost.getText().equals("Current location")) {
-                chooseRoverButton.setDisable(true);
-            }
+            thrustCost.setText(thrustText);
+
+            boolean isUnreachable = "Unreacheable".equals(thrustText);
+            boolean isCurrentLocation = CURRENT_LOCATION.equals(thrustText);
+            moveButton.setDisable(isUnreachable || isCurrentLocation);
+            chooseRoverButton.setDisable(!isCurrentLocation);
+
             nameButton.setText(spaceLocation.getName());
             typeButton.setText(spaceLocation.getType().toString());
-            if (cardUtil.playerHasMotor(player.getId()) && !thrustCost.getText().equals("Current location")) {
+
+            if (cardUtil.playerHasMotor(player.getId()) && !isCurrentLocation) {
                 MotorCard motorCard = MotorCardsDatabaseUtil.getMotorCardById(cardUtil.getMotorIdByPlayerId(player.getId()));
-                fuelCost = calculateFuelCostToLocation(motorCard, Integer.parseInt(thrustCost.getText()));
+                fuelCost = calculateFuelCostToLocation(motorCard, Integer.parseInt(thrustText));
                 thrustCost.setText(fuelCost.toString());
-            } else {
+            } else if (!isCurrentLocation) {
                 thrustCost.setText("Buy an engine to calculate price of movement");
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
+        } catch (SQLException e) {
+            throw new MovementException(e);
+        }
     }
 
+
     public void move() {
-        /*player.setLocationId(spaceLocation.getId());
-        universeMapController.updateColors();*/
         try {
             if (cardUtil.playerHasMotor(player.getId())) {
-                MotorCard motorCard = MotorCardsDatabaseUtil.getMotorCardById(cardUtil.getMotorIdByPlayerId(player.getId()));
                 if (player.getFuel() >= fuelCost) {
                     player.setFuel(player.getFuel() - fuelCost);
                     PlayerDatabaseUtil.updatePlayerFuel(player.getId(), player.getFuel() - fuelCost);
@@ -109,7 +107,7 @@ public class SpaceLocationInfoController {
                 alert.showAndWait();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MovementException(e);
         }
 
     }
@@ -130,7 +128,7 @@ public class SpaceLocationInfoController {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MovementException(e);
         }
     }
 
@@ -139,13 +137,10 @@ public class SpaceLocationInfoController {
             throw new IllegalArgumentException("Motor cannot be null.");
         }
 
-        int scalingFactor = 100000; // significantly bigger to boost output
+        int scalingFactor = 100000;
 
         double rawCost = (motor.getMass() * thrustCost * motor.getThrust() * scalingFactor) / (double) motor.getIsp();
-        int fuelCost = (int) Math.ceil(rawCost);
 
-        System.out.println("Mass: " + motor.getMass() + ", ThrustCost: " + thrustCost + ", Thrust: " + motor.getThrust() + ", ISP: " + motor.getIsp() + ", RawCost: " + rawCost + ", FuelCost: " + fuelCost);
-
-        return Math.min(Math.max(fuelCost, 100), 1000);
+        return Math.clamp((int) Math.ceil(rawCost), 100, 1000);
     }
 }

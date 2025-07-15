@@ -1,4 +1,4 @@
-package hr.tvz.pejkunovic.highfrontier.model.cardModels;
+package hr.tvz.pejkunovic.highfrontier.model.cardmodels;
 
 import lombok.*;
 

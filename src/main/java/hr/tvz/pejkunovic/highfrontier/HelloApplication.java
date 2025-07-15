@@ -1,7 +1,5 @@
 package hr.tvz.pejkunovic.highfrontier;
 
-import hr.tvz.pejkunovic.highfrontier.threads.PlayerOneServerThread;
-import hr.tvz.pejkunovic.highfrontier.threads.PlayerTwoServerThread;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    public static String playerName;
+    private static String playerName;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(UniverseMapController.class.getResource("universeMapView.fxml"));
@@ -26,16 +24,6 @@ public class HelloApplication extends Application {
         if(args.length > 0) {
             playerName = args[0];
 
-            if(playerName.equals("player2")) {
-                PlayerTwoServerThread playerTwoServerThread = new PlayerTwoServerThread();
-                Thread thread = new Thread(playerTwoServerThread);
-                thread.start();
-            }
-            else if(playerName.equals("player1")) {
-                PlayerOneServerThread playerOneServerThread = new PlayerOneServerThread();
-                Thread thread = new Thread(playerOneServerThread);
-                thread.start();
-            }
 
             launch();
         }
@@ -48,5 +36,8 @@ public class HelloApplication extends Application {
                 alert.showAndWait();
             });
         }
+    }
+    public static String getPlayerName() {
+        return playerName;
     }
 }

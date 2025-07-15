@@ -3,8 +3,9 @@ package hr.tvz.pejkunovic.highfrontier;
 import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
 import hr.tvz.pejkunovic.highfrontier.database.MotorCardsDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.exception.UniverseException;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.MotorCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.MotorCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -51,14 +52,14 @@ public class EngineShopController {
     public void setUp(Player player){
       this.player=player;
         try {
-            Boolean playerHasMotor = cardUtil.playerHasMotor(player.getId());
+            boolean playerHasMotor = cardUtil.playerHasMotor(player.getId());
             if(playerHasMotor){
-                engineButtons.forEach((id, button) -> {
-                    button.setDisable(true);
-                });
+                engineButtons.forEach((id, button) ->
+                    button.setDisable(true)
+                );
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UniverseException(e);
         }
     }
 
@@ -69,9 +70,9 @@ public class EngineShopController {
 
         Long engineId = buttonToEngineId.get(buttonId);
         buySpecificEngine(engineId);
-        engineButtons.forEach((id, button) -> {
-                button.setDisable(true);
-        });
+        engineButtons.forEach((id, button) ->
+                button.setDisable(true)
+        );
     }
 
     private void buySpecificEngine(Long engineId) {
@@ -96,7 +97,7 @@ public class EngineShopController {
                     alert.showAndWait();
                 }
             } catch(SQLException e){
-                    throw new RuntimeException(e);
+                    throw new UniverseException(e);
                 }
             }
         }

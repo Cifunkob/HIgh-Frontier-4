@@ -3,10 +3,11 @@ package hr.tvz.pejkunovic.highfrontier;
 import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
 import hr.tvz.pejkunovic.highfrontier.database.DeploymentDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.RoverCardsDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.exception.PlayerException;
 import hr.tvz.pejkunovic.highfrontier.model.Deployment;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.RoverCard;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.SpaceLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -50,14 +51,14 @@ public class ChooseRoverToPutController {
 }
 
 public void deployRover(ActionEvent event){
-    Deployment deployment=new Deployment(player.getId(), spaceLocation.getId(), playerRoverCards.get(roverChoiceBox.getSelectionModel().getSelectedIndex()).getId());
+    Deployment deployment=new Deployment(player.getId(), playerRoverCards.get(roverChoiceBox.getSelectionModel().getSelectedIndex()).getId(), spaceLocation.getId());
     try {
         DeploymentDatabaseUtil.createDeployment(deployment);
         cardUtil.removeRoverFromPlayer(player.getId(), playerRoverCards.get(roverChoiceBox.getSelectionModel().getSelectedIndex()).getId());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     } catch (SQLException e) {
-        throw new RuntimeException(e);
+        throw new PlayerException(e);
     }
 }
 }

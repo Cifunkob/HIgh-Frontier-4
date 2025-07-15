@@ -80,5 +80,6 @@
       </Label>
       <TextField fx:id="chatMessageTextField" layoutX="7.0" layoutY="711.0" onAction="#sendChatMessage" prefHeight="26.0" prefWidth="886.0" />
       <TextArea fx:id="chatMessageTextArea" layoutX="7.0" layoutY="508.0" prefHeight="200.0" prefWidth="886.0" />
+      <Button layoutX="1332.0" layoutY="17.0" mnemonicParsing="false" onAction="#generateDocumentation" text="Generate documentation" />
    </children>
 </AnchorPane>

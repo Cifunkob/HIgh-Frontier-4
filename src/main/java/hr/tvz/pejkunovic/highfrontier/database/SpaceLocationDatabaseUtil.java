@@ -1,7 +1,7 @@
 package hr.tvz.pejkunovic.highfrontier.database;
 
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.LocationType;
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.SpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.LocationType;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.SpaceLocation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ public class SpaceLocationDatabaseUtil {
             }
         } catch (SQLException ex) {
             String message = "An error occurred while retrieving all space locations.";
-            System.out.println(ex.getErrorCode());
             throw new SQLException(message, ex);
 
         }

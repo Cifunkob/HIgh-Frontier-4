@@ -1,6 +1,6 @@
 package hr.tvz.pejkunovic.highfrontier.database;
 
-import hr.tvz.pejkunovic.highfrontier.model.spaceExplorationModels.ConnectionSpaceLocation;
+import hr.tvz.pejkunovic.highfrontier.model.spaceexplorationmodels.ConnectionSpaceLocation;
 
 import java.sql.*;
 import java.util.ArrayList;

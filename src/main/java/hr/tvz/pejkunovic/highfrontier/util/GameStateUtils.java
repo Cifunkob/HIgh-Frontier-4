@@ -7,6 +7,8 @@ import hr.tvz.pejkunovic.highfrontier.model.VictoryPointsPlayer;
 import java.util.List;
 
 public class GameStateUtils {
+
+    private GameStateUtils() {}
     public static GameState createCurrentGameState(List<Deployment> deployments, List<VictoryPointsPlayer> victoryPointsPlayers, Integer turnNumber) {
         GameState gameStateToSave = new GameState();
 

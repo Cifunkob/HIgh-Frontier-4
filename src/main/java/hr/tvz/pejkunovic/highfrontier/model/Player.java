@@ -1,6 +1,6 @@
 package hr.tvz.pejkunovic.highfrontier.model;
 
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.TechnologyCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.TechnologyCard;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -3,8 +3,9 @@ package hr.tvz.pejkunovic.highfrontier;
 import hr.tvz.pejkunovic.highfrontier.database.CardUtil;
 import hr.tvz.pejkunovic.highfrontier.database.PlayerDatabaseUtil;
 import hr.tvz.pejkunovic.highfrontier.database.RoverCardsDatabaseUtil;
+import hr.tvz.pejkunovic.highfrontier.exception.BuyingException;
 import hr.tvz.pejkunovic.highfrontier.model.Player;
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.RoverCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -25,7 +26,7 @@ public class RoverShopController {
     private Button buyNomadButton;
     @FXML
     private Button buyPioneerButton;
-    public Player player;
+    private Player player;
     private CardUtil cardUtil=new CardUtil();
 
     private final Map<String, Long> buttonToRoverId = Map.of(
@@ -54,11 +55,7 @@ public class RoverShopController {
             RoverCard roverCard=RoverCardsDatabaseUtil.getRoverCardById(roverId);
             if(player.getWater()>=roverCard.getCost()){
                 player.setWater(player.getWater()-roverCard.getCost());
-                try {
-                    PlayerDatabaseUtil.updatePlayerWater(player.getId(), player.getWater());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                updatePlayerWaterInDatabase(player.getId(), player.getWater());
                 cardUtil.addRoverToPlayer(player.getId(), roverId);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Rover Purchased");
@@ -73,7 +70,15 @@ public class RoverShopController {
                 alert.showAndWait();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BuyingException(e);
+        }
+    }
+
+    private void updatePlayerWaterInDatabase(Long playerId, int newWaterAmount) {
+        try {
+            PlayerDatabaseUtil.updatePlayerWater(playerId, newWaterAmount);
+        } catch (SQLException e) {
+            throw new BuyingException(e);
         }
     }
 }

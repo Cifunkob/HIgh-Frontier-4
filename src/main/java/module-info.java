@@ -11,7 +11,7 @@ module hr.tvz.pejkunovic.highfrontier {
 
     exports hr.tvz.pejkunovic.highfrontier;
     exports hr.tvz.pejkunovic.highfrontier.model;
-    exports hr.tvz.pejkunovic.highfrontier.model.cardModels;
+    exports hr.tvz.pejkunovic.highfrontier.model.cardmodels;
     exports hr.tvz.pejkunovic.highfrontier.chat to java.rmi;
-    opens hr.tvz.pejkunovic.highfrontier.model.cardModels to javafx.base;
+    opens hr.tvz.pejkunovic.highfrontier.model.cardmodels to javafx.base;
 }

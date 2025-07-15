@@ -1,14 +1,13 @@
 package hr.tvz.pejkunovic.highfrontier.database;
 
-import hr.tvz.pejkunovic.highfrontier.model.cardModels.RoverCard;
+import hr.tvz.pejkunovic.highfrontier.model.cardmodels.RoverCard;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoverCardsDatabaseUtil {
-
-    public RoverCardsDatabaseUtil() {}
+    private RoverCardsDatabaseUtil() {}
 
     public static List<RoverCard> getAllRoverCards() throws SQLException {
         List<RoverCard> roverCardList = new ArrayList<>();

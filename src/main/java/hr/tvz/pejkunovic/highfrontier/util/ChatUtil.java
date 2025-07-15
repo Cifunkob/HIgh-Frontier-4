@@ -1,8 +1,8 @@
 package hr.tvz.pejkunovic.highfrontier.util;
 
 import hr.tvz.pejkunovic.highfrontier.HelloApplication;
-import hr.tvz.pejkunovic.highfrontier.UniverseMapController;
 import hr.tvz.pejkunovic.highfrontier.chat.ChatRemoteService;
+import hr.tvz.pejkunovic.highfrontier.exception.RemoteChatException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,17 +13,17 @@ import javafx.util.Duration;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public class CHatUtil {
+public class ChatUtil {
     public class ChatUtils {
 
         private ChatUtils() {}
 
         public static void sendChatMessage(String chatMessage, ChatRemoteService chatRemoteService) {
             try {
-                chatRemoteService.sendChatMessage(HelloApplication.playerName
+                chatRemoteService.sendChatMessage(HelloApplication.getPlayerName()
                         + ": " + chatMessage);
-            } catch (RemoteException e) {
-                System.out.println(e.getMessage());
+            } catch (RemoteException _) {
+                throw new RemoteChatException("Failed to send chat message.");
             }
         }
 
@@ -33,8 +33,8 @@ public class CHatUtil {
                     List<String> chatMessages = chatRemoteService.getAllChatMessages();
                     String chatMessagesString = String.join("\n", chatMessages);
                     chatTextArea.setText(chatMessagesString);
-                } catch (RemoteException e) {
-                    System.out.println(e.getMessage());                }
+                } catch (RemoteException _) {
+                    throw new RemoteChatException("Failed to get chat messages.");           }
             }), new KeyFrame(Duration.seconds(1)));
             chatMessagesTimeline.setCycleCount(Animation.INDEFINITE);
             return chatMessagesTimeline;

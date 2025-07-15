@@ -20,18 +20,17 @@ public class ButtonUtil {
     public static List<Button> findAllButtons(Parent parent) {
         List<Button> buttons = new ArrayList<>();
         for (Node node : parent.getChildrenUnmodifiable()) {
-            if (node instanceof Button) {
-                buttons.add((Button) node);
-            } else if (node instanceof Parent) {
-                buttons.addAll(findAllButtons((Parent) node));
+            if (node instanceof Button button) {
+                buttons.add(button);
+            } else if (node instanceof Parent child) {
+                buttons.addAll(findAllButtons(child));
             }
         }
         return buttons;
     }
 
-    public static void updateButtonsBasedOnTurn(Parent root, int turn, String playerName) {
+    public static void updateButtonsBasedOnTurn(Parent root, Integer turn, String playerName) {
         boolean enable;
-
         if (turn % 2 == 1 && playerName.equals("player1")) {
             enable = true;
         } else if (turn % 2 == 1 && playerName.equals("player2")) {
@@ -52,14 +51,14 @@ public class ButtonUtil {
     }
 
     public static void setButtonsEnabled(Parent root) {
-        Platform.runLater(() -> {
-            root.lookupAll(".button").forEach(node -> node.setDisable(false));
-        });
+        Platform.runLater(() ->
+            root.lookupAll(".button").forEach(node -> node.setDisable(false))
+        );
     }
 
     public static void setButtonsDisabled(Parent root) {
-        Platform.runLater(() -> {
-            root.lookupAll(".button").forEach(node -> node.setDisable(true));
-        });
+        Platform.runLater(() ->
+            root.lookupAll(".button").forEach(node -> node.setDisable(true))
+        );
     }
 }
